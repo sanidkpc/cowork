@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet } from '@ionic/react';
+import { IonApp, IonButton, IonContent, IonFooter, IonHeader, IonInput, IonItem, IonMenu, IonRouterOutlet, IonSplitPane, IonTitle, IonToolbar } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
 
@@ -22,16 +22,45 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import { Collaboration } from './services/firestore';
+const App: React.FC = () => {
+  let collaboration = Collaboration.getInstance();
+  const [text, setText] = useState<string>();
+  return (
+    <IonApp>
+      <IonReactRouter>
+        <IonSplitPane contentId="main">
+          <IonMenu side="end" contentId="main">
+            <IonHeader>
+              <IonToolbar>
+                <IonTitle>Menu</IonTitle>
+              </IonToolbar>
+            </IonHeader>
+            <IonContent className="ion-padding">
+              sanidkpc
+            </IonContent>
+            <IonFooter>
+              <IonToolbar>
+                <IonItem lines="none">
+                  <IonInput value={text} placeholder="Enter Input" onIonChange={e => setText(e.detail.value!)}></IonInput>
+                  <IonButton onClick={() => {
+                    collaboration.sendMessage(text);
+                  }} slot="end">
+                    End
+                </IonButton>
+                </IonItem>
+              </IonToolbar>
+            </IonFooter>
+          </IonMenu>
+          <IonRouterOutlet id="main">
+            <Route path="/home" component={Home} exact={true} />
+            <Route exact path="/" render={() => <Redirect to="/home" />} />
+          </IonRouterOutlet>
+        </IonSplitPane>
+      </IonReactRouter>
+    </IonApp>
+  )
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonRouterOutlet>
-        <Route path="/home" component={Home} exact={true} />
-        <Route exact path="/" render={() => <Redirect to="/home" />} />
-      </IonRouterOutlet>
-    </IonReactRouter>
-  </IonApp>
-);
+};
 
 export default App;

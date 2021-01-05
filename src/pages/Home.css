@@ -1,0 +1,16 @@
+.fullheight {
+  height: 100%;
+}
+
+.xc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.room-link {
+  border: 1px solid;
+  padding: 8px;
+}
+.copy-button {
+  margin-top: -6px;
+}
