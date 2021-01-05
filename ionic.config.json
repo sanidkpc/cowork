@@ -1,0 +1,7 @@
+{
+  "name": "cowork",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
